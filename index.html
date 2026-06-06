@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vehicle Tracking</title>
+
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+background:#111;
+color:white;
+}
+
+.card{
+background:#222;
+padding:20px;
+margin:10px;
+border-radius:10px;
+}
+
+button{
+padding:15px;
+font-size:18px;
+border-radius:10px;
+background:green;
+color:white;
+border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>🚗 Vehicle Tracking</h2>
+
+<div class="card">
+
+Latitude:
+<h3 id="lat">Loading...</h3>
+
+Longitude:
+<h3 id="lon">Loading...</h3>
+
+</div>
+
+<div class="card">
+
+Accident Status
+
+<h3 id="status">Safe</h3>
+
+</div>
+
+<button onclick="openMap()">
+Open Map
+</button>
+
+
+<script>
+
+var latitude = 0;
+var longitude = 0;
+
+function openMap()
+{
+window.open(
+"https://maps.google.com/?q="+latitude+","+longitude
+);
+}
+
+setInterval(function(){
+
+fetch("data.txt")
+.then(response => response.text())
+.then(data => {
+
+var d = data.split(",");
+
+latitude=d[0];
+longitude=d[1];
+
+document.getElementById("lat").innerHTML = latitude;
+
+document.getElementById("lon").innerHTML = longitude;
+
+});
+
+},2000);
+
+</script>
+
+</body>
+</html>
